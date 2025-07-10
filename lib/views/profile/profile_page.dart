@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:kaagappay/components/bottom_nav_bar.dart';
+import 'package:kaagappay/components/primary_button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -158,48 +159,22 @@ class _ProfilePageState extends State<ProfilePage> {
                 Row(
                   children: [
                     Expanded(
-                      child: ElevatedButton.icon(
+                      child: PrimaryButton(
                         onPressed: () {
                           // TODO: Edit Profile action
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryGreen,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                        ),
-                        icon: const Icon(LucideIcons.edit2, color: Colors.white, size: 16),
-                        label: const Text(
-                          'Edit Profile',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Sora',
-                          ),
-                        ),
+                        icon: LucideIcons.edit2,
+                        label: 'Edit Profile',
                       ),
                     ),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: ElevatedButton.icon(
+                      child: PrimaryButton(
                         onPressed: () {
                           // TODO: Share Profile action
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryGreen,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                        ),
-                        icon: const Icon(LucideIcons.share2, color: Colors.white, size: 16),
-                        label: const Text(
-                          'Share Profile',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Sora',
-                          ),
-                        ),
+                        icon: LucideIcons.share2,
+                        label: 'Share Profile',
                       ),
                     ),
                   ],

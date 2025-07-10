@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final IconData icon;
+  final IconData? icon;
   final String label;
   final Color backgroundColor;
   final Color textColor;
@@ -10,7 +10,7 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     Key? key,
     required this.onPressed,
-    required this.icon,
+    this.icon,
     required this.label,
     this.backgroundColor = const Color(0xFF4CAF50), // primaryGreen by default
     this.textColor = Colors.white, // white text by default
@@ -31,7 +31,7 @@ class PrimaryButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(25),
         ),
         padding: const EdgeInsets.symmetric(vertical: 12),
       ),

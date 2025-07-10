@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   lucide_icons: ^0.256.0
+  image_picker: ^1.0.7
   flutter:
     sdk: flutter
 

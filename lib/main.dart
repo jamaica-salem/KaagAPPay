@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kaagappay/views/splash_screen.dart';  // 👈 Add this line
+import 'helpers/navigate_pages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'KaagAPPay',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const SplashScreen(),
+      theme: ThemeData(fontFamily: 'Sora'),
+      initialRoute: NavigatePages.splash,
+      onGenerateRoute: NavigatePages.generateRoute,
     );
   }
 }

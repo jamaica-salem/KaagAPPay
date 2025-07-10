@@ -118,12 +118,3 @@ class _NavItem {
   const _NavItem({required this.label, required this.icon});
 }
 
-/*
-Key Features Implemented:
-- Animated icon scaling on selection with smooth transition
-- Rounded corners with elevation for soft shadow
-- Responsive tapping with InkWell effect
-- Clear separation of navigation data (_NavItem)
-- Error-safe ValueChanged<int> usage
-- High performance using const where possible
-*/

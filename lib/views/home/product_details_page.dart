@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:kaagappay/components/bottom_nav_bar.dart';
+import 'package:kaagappay/components/custom_app_bar.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final Map<String, dynamic> product;
@@ -29,32 +30,7 @@ class ProductDetailsPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              border: Border(bottom: BorderSide(color: Color(0xFFD9D9D9), width: 1.0)),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset('lib/assets/LogoTBG.png', height: 40, width: 40),
-                ),
-                IconButton(
-                  icon: const Icon(LucideIcons.bell),
-                  color: Colors.black,
-                  onPressed: () {
-                    // Notification logic here
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
+        appBar: const CustomAppBar(),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(

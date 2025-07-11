@@ -59,14 +59,6 @@ class _SettingsPageState extends State<SettingsPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Back Button
-                IconButton(
-                  icon: const Icon(LucideIcons.arrowLeft, color: Colors.black),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-
                 const SizedBox(height: 10),
 
                 // Settings List

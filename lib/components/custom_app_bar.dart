@@ -12,79 +12,95 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   void _showNotifications(BuildContext context) {
     showDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: true,  // ✅ Tap outside to dismiss
       builder: (_) {
-        return Material(  // ✅ Add this Material wrapper
-          color: Colors.transparent,
-          child: Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.9,
-              height: 400,
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.15),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
-                  ),
-                ],
-              ),
-              child: DefaultTabController(
-                length: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Notifications',
-                      style: TextStyle(
-                        fontFamily: 'Sora',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const TabBar(
-                      labelColor: Color(0xFF4CAF50),
-                      unselectedLabelColor: Colors.black54,
-                      labelStyle: TextStyle(fontFamily: 'Sora', fontWeight: FontWeight.w600),
-                      indicatorColor: Color(0xFF4CAF50),
-                      tabs: [
-                        Tab(text: 'Trends'),
-                        Tab(text: 'System'),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-                    Expanded(
-                      child: TabBarView(
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          child: Material(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.white,
+            child: SizedBox(
+              width: double.infinity,
+              height: 420,
+              child: Stack(
+                children: [
+                  DefaultTabController(
+                    length: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ListView.builder(
-                            itemCount: 3,
-                            itemBuilder: (context, index) => ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: const Icon(LucideIcons.trendingUp, color: Color(0xFF4CAF50)),
-                              title: Text('Market prices are rising for Crop ${index + 1}',
-                                  style: const TextStyle(fontFamily: 'Sora', fontSize: 13)),
-                              subtitle: const Text('2 hours ago', style: TextStyle(fontSize: 11)),
+                          const Text(
+                            'Notifications',
+                            style: TextStyle(
+                              fontFamily: 'Sora',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
                             ),
                           ),
-                          ListView.builder(
-                            itemCount: 3,
-                            itemBuilder: (context, index) => ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: const Icon(LucideIcons.info, color: Colors.orange),
-                              title: Text('System update scheduled for 10 PM',
-                                  style: const TextStyle(fontFamily: 'Sora', fontSize: 13)),
-                              subtitle: const Text('1 day ago', style: TextStyle(fontSize: 11)),
+                          const SizedBox(height: 15),
+                          const TabBar(
+                            labelColor: Color(0xFF4CAF50),
+                            unselectedLabelColor: Colors.black54,
+                            labelStyle: TextStyle(fontFamily: 'Sora', fontWeight: FontWeight.w600),
+                            indicatorColor: Color(0xFF4CAF50),
+                            tabs: [
+                              Tab(text: 'Trends'),
+                              Tab(text: 'System'),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Expanded(
+                            child: TabBarView(
+                              children: [
+                                ListView.builder(
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) => ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    leading: const Icon(LucideIcons.trendingUp, color: Color(0xFF4CAF50)),
+                                    title: Text(
+                                      'Market prices are rising for Crop ${index + 1}',
+                                      style: const TextStyle(fontFamily: 'Sora', fontSize: 13),
+                                    ),
+                                    subtitle: const Text('2 hours ago', style: TextStyle(fontSize: 11)),
+                                  ),
+                                ),
+                                ListView.builder(
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) => ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    leading: const Icon(LucideIcons.info, color: Colors.orange),
+                                    title: Text(
+                                      'System update scheduled for 10 PM',
+                                      style: const TextStyle(fontFamily: 'Sora', fontSize: 13),
+                                    ),
+                                    subtitle: const Text('1 day ago', style: TextStyle(fontSize: 11)),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+
+                  // ❌ Close Button
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: InkWell(
+                      onTap: () => Navigator.of(context).pop(),
+                      borderRadius: BorderRadius.circular(20),
+                      child: const Padding(
+                        padding: EdgeInsets.all(4.0),
+                        child: Icon(Icons.close, size: 20, color: Colors.black54),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -92,7 +108,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {

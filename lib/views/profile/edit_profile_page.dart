@@ -83,7 +83,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Image.asset(
-                    'lib/assets/BrandingTBG.png',
+                    'lib/assets/LogoTBG.png',
                     height: 40,
                   ),
                 ),

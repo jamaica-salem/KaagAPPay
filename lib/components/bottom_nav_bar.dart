@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
+import 'package:kaagappay/helpers/navigate_pages.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int currentIndex;
@@ -12,16 +13,15 @@ class BottomNavBar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<BottomNavBar> createState() => _MyNavbarState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _MyNavbarState extends State<BottomNavBar> with SingleTickerProviderStateMixin {
+class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
   late final Animation<double> _scaleAnimation;
 
   final Color primaryGreen = const Color(0xFF4CAF50);
 
-  // Define nav items
   final List<_NavItem> _items = const [
     _NavItem(label: 'Home', icon: LucideIcons.home),
     _NavItem(label: 'Marketplace', icon: LucideIcons.store),
@@ -48,6 +48,28 @@ class _MyNavbarState extends State<BottomNavBar> with SingleTickerProviderStateM
     super.dispose();
   }
 
+  void _handleNavigation(int index) {
+    widget.onTap(index);
+
+    _animationController.forward().then((_) => _animationController.reverse());
+
+    // Navigate using named routes from NavigatePages
+    switch (index) {
+      case 0:
+        Navigator.pushNamed(context, NavigatePages.marketTrend);
+        break;
+      case 1:
+        Navigator.pushNamed(context, NavigatePages.marketplace);
+        break;
+      case 2:
+        Navigator.pushNamed(context, NavigatePages.news);
+        break;
+      case 3:
+        Navigator.pushNamed(context, NavigatePages.settings);
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -72,10 +94,7 @@ class _MyNavbarState extends State<BottomNavBar> with SingleTickerProviderStateM
           return Expanded(
             child: InkWell(
               borderRadius: BorderRadius.circular(30),
-              onTap: () {
-                widget.onTap(index);
-                _animationController.forward().then((_) => _animationController.reverse());
-              },
+              onTap: () => _handleNavigation(index),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 6),
                 child: Column(
@@ -110,11 +129,9 @@ class _MyNavbarState extends State<BottomNavBar> with SingleTickerProviderStateM
   }
 }
 
-// Private NavItem class to hold label and icon data
 class _NavItem {
   final String label;
   final IconData icon;
 
   const _NavItem({required this.label, required this.icon});
 }
-

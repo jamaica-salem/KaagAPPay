@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kaagappay/components/bottom_nav_bar.dart';  // <-- Make sure this import is correct
+import 'package:kaagappay/components/bottom_nav_bar.dart';
 
 class MarketTrendPage extends StatefulWidget {
   const MarketTrendPage({Key? key}) : super(key: key);

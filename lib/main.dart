@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'KaagAPPay',
       theme: ThemeData(fontFamily: 'Sora'),
-      initialRoute: NavigatePages.editProfile,
+      initialRoute: NavigatePages.settings,
       onGenerateRoute: NavigatePages.generateRoute,
     );
   }

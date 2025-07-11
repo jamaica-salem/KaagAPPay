@@ -19,12 +19,76 @@ class _MarketTrendPageState extends State<MarketTrendPage> {
   String _selectedType = 'All';
 
   final List<Map<String, dynamic>> _marketTrends = [
-    {'name': 'Onions', 'price': '₱120/kg', 'change': '+5%', 'icon': LucideIcons.sun},
-    {'name': 'Garlic', 'price': '₱150/kg', 'change': '-2%', 'icon': LucideIcons.leaf},
-    {'name': 'Carrots', 'price': '₱90/kg', 'change': '+1%', 'icon': LucideIcons.carrot},
-    {'name': 'Cabbage', 'price': '₱70/kg', 'change': '+0%', 'icon': LucideIcons.rocket},
-    {'name': 'Potatoes', 'price': '₱100/kg', 'change': '-1%', 'icon': LucideIcons.box},
-    {'name': 'Tomatoes', 'price': '₱110/kg', 'change': '+3%', 'icon': LucideIcons.flame},
+    {
+      'name': 'Onions',
+      'price': '₱120/kg',
+      'change': '+5%',
+      'icon': LucideIcons.sun,
+      'type': 'Vegetables',
+    },
+    {
+      'name': 'Garlic',
+      'price': '₱150/kg',
+      'change': '-2%',
+      'icon': LucideIcons.leaf,
+      'type': 'Vegetables',
+    },
+    {
+      'name': 'Carrots',
+      'price': '₱90/kg',
+      'change': '+1%',
+      'icon': LucideIcons.carrot,
+      'type': 'Vegetables',
+    },
+    {
+      'name': 'Cabbage',
+      'price': '₱70/kg',
+      'change': '+0%',
+      'icon': LucideIcons.rocket,
+      'type': 'Vegetables',
+    },
+    {
+      'name': 'Potatoes',
+      'price': '₱100/kg',
+      'change': '-1%',
+      'icon': LucideIcons.box,
+      'type': 'Vegetables',
+    },
+    {
+      'name': 'Tomatoes',
+      'price': '₱110/kg',
+      'change': '+3%',
+      'icon': LucideIcons.flame,
+      'type': 'Vegetables',
+    },
+    {
+      'name': 'Mangoes',
+      'price': '₱140/kg',
+      'change': '+4%',
+      'icon': LucideIcons.apple,
+      'type': 'Fruits',
+    },
+    {
+      'name': 'Bananas',
+      'price': '₱60/kg',
+      'change': '+2%',
+      'icon': LucideIcons.banana,
+      'type': 'Fruits',
+    },
+    {
+      'name': 'Rice',
+      'price': '₱50/kg',
+      'change': '+1%',
+      'icon': LucideIcons.wheatOff,
+      'type': 'Grains',
+    },
+    {
+      'name': 'Corn',
+      'price': '₱35/kg',
+      'change': '-1%',
+      'icon': LucideIcons.wheat,
+      'type': 'Grains',
+    },
   ];
 
   final List<String> _months = [
@@ -37,15 +101,17 @@ class _MarketTrendPageState extends State<MarketTrendPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Filtering by name and type
     final filteredTrends = _marketTrends.where((item) {
       final nameMatch = item['name'].toString().toLowerCase().contains(_searchQuery.toLowerCase());
-      final typeMatch = _selectedType == 'All' || _selectedType == 'Vegetables'; // Placeholder type logic
+      final typeMatch = _selectedType == 'All' || item['type'] == _selectedType;
       return nameMatch && typeMatch;
     }).toList();
 
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
+
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(80.0),
           child: Container(
@@ -65,7 +131,7 @@ class _MarketTrendPageState extends State<MarketTrendPage> {
                   icon: const Icon(LucideIcons.bell),
                   color: Colors.black,
                   onPressed: () {
-                    // TODO: Handle notification click
+                    // TODO: Notification action
                   },
                 ),
               ],
@@ -116,7 +182,6 @@ class _MarketTrendPageState extends State<MarketTrendPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Left side: Month & Year
                   Row(
                     children: [
                       MouseRegion(
@@ -162,7 +227,6 @@ class _MarketTrendPageState extends State<MarketTrendPage> {
                     ],
                   ),
 
-                  // Right side: Type Filter
                   MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: PopupMenuButton<String>(
@@ -178,7 +242,6 @@ class _MarketTrendPageState extends State<MarketTrendPage> {
 
               const SizedBox(height: 20),
 
-              // Market Trends List
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

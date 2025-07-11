@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:kaagappay/components/bottom_nav_bar.dart';
+import 'package:kaagappay/helpers/navigate_pages.dart';
 
 class MarketplacePage extends StatefulWidget {
   const MarketplacePage({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
   final List<Map<String, dynamic>> _marketplaceItems = [
     {
       'name': 'Onions',
-      'stock': '10kg',
+      'stock': '10',
       'location': 'Pampanga City',
       'price': '₱100/kg',
       'category': 'Crops/Seeds',
@@ -27,7 +28,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
     },
     {
       'name': 'Tomatoes',
-      'stock': '25kg',
+      'stock': '25',
       'location': 'Tarlac',
       'price': '₱90/kg',
       'category': 'Crops/Seeds',
@@ -35,7 +36,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
     },
     {
       'name': 'Carrots',
-      'stock': '15kg',
+      'stock': '15',
       'location': 'Baguio',
       'price': '₱80/kg',
       'category': 'Crops/Seeds',
@@ -43,7 +44,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
     },
     {
       'name': 'Fertilizer',
-      'stock': '50kg',
+      'stock': '50',
       'location': 'Nueva Ecija',
       'price': '₱1200/sack',
       'category': 'Materials',
@@ -72,7 +73,6 @@ class _MarketplacePageState extends State<MarketplacePage> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(80.0),
           child: Container(
@@ -99,14 +99,12 @@ class _MarketplacePageState extends State<MarketplacePage> {
             ),
           ),
         ),
-
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               const Text(
                 'Marketplace',
                 style: TextStyle(
@@ -117,7 +115,6 @@ class _MarketplacePageState extends State<MarketplacePage> {
                 ),
               ),
               const SizedBox(height: 15),
-
               Row(
                 children: [
                   Expanded(
@@ -142,7 +139,6 @@ class _MarketplacePageState extends State<MarketplacePage> {
                     ),
                   ),
                   const SizedBox(width: 10),
-
                   MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: ElevatedButton.icon(
@@ -152,7 +148,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                       ),
                       onPressed: () {
-                        // Navigate to Sell Page
+                        // TODO: Navigate to Sell Page
                       },
                       icon: const Icon(LucideIcons.plus, size: 16, color: Colors.white),
                       label: const Text(
@@ -167,9 +163,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 15),
-
               Row(
                 children: _categories.map((category) {
                   final isSelected = _selectedCategory == category;
@@ -192,84 +186,85 @@ class _MarketplacePageState extends State<MarketplacePage> {
                   );
                 }).toList(),
               ),
-
               const SizedBox(height: 20),
-
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: filteredItems.length,
                 itemBuilder: (context, index) {
                   final item = filteredItems[index];
-
-                  return Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF9F9F9),
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(color: const Color(0xFFE0E0E0)),
-                    ),
-                    child: Row(
-                      children: [
-
-                        // Left: Image (vertically centered naturally in Row)
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.asset(
-                            item['image'],
-                            width: 70,
-                            height: 70,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => Container(
-                              width: 70,
-                              height: 70,
-                              color: Colors.grey[300],
-                              child: const Icon(Icons.broken_image, color: Colors.grey),
+                  return MouseRegion( // 👈 Added MouseRegion here
+                    cursor: SystemMouseCursors.click,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          NavigatePages.productDetails,
+                          arguments: item,
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF9F9F9),
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(color: const Color(0xFFE0E0E0)),
+                        ),
+                        child: Row(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                item['image'],
+                                width: 70,
+                                height: 70,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) => Container(
+                                  width: 70,
+                                  height: 70,
+                                  color: Colors.grey[300],
+                                  child: const Icon(Icons.broken_image, color: Colors.grey),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-
-                        const SizedBox(width: 12),
-
-                        // Center: Details
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item['name'],
-                                style: const TextStyle(fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w600),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item['name'],
+                                    style: const TextStyle(fontFamily: 'Sora', fontSize: 16, fontWeight: FontWeight.w600),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    'Stocks left: ${item['stock']}',
+                                    style: const TextStyle(fontFamily: 'Sora', fontSize: 13, color: Colors.black54),
+                                  ),
+                                  Text(
+                                    item['location'],
+                                    style: const TextStyle(fontFamily: 'Sora', fontSize: 13, color: Colors.black54),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Stocks left: ${item['stock']}',
-                                style: const TextStyle(fontFamily: 'Sora', fontSize: 13, color: Colors.black54),
+                            ),
+                            Text(
+                              item['price'],
+                              style: const TextStyle(
+                                fontFamily: 'Sora',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black87,
                               ),
-                              Text(
-                                item['location'],
-                                style: const TextStyle(fontFamily: 'Sora', fontSize: 13, color: Colors.black54),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-
-                        // Right: Price
-                        Text(
-                          item['price'],
-                          style: const TextStyle(
-                            fontFamily: 'Sora',
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   );
                 },
               ),
-
               if (filteredItems.isEmpty)
                 const Padding(
                   padding: EdgeInsets.only(top: 30),
@@ -280,17 +275,16 @@ class _MarketplacePageState extends State<MarketplacePage> {
             ],
           ),
         ),
-
         bottomNavigationBar: BottomNavBar(
           currentIndex: _currentIndex,
           onTap: (index) {
             if (index == _currentIndex) return;
             setState(() => _currentIndex = index);
             switch (index) {
-              case 0: Navigator.pushNamed(context, '/marketTrend'); break;
-              case 1: Navigator.pushNamed(context, '/marketplace'); break;
-              case 2: Navigator.pushNamed(context, '/news'); break;
-              case 3: Navigator.pushNamed(context, '/settings'); break;
+              case 0: Navigator.pushNamed(context, NavigatePages.marketTrend); break;
+              case 1: Navigator.pushNamed(context, NavigatePages.marketplace); break;
+              case 2: Navigator.pushNamed(context, NavigatePages.news); break;
+              case 3: Navigator.pushNamed(context, NavigatePages.settings); break;
             }
           },
         ),

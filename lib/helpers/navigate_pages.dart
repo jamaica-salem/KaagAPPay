@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kaagappay/views/auth/login_page.dart';
 import 'package:kaagappay/views/auth/signup_page.dart';
 import 'package:kaagappay/views/home/market_trend_page.dart';
-import 'package:kaagappay/views/home/farmer_details_page.dart';
+import 'package:kaagappay/views/home/product_details_page.dart';
 import 'package:kaagappay/views/home/marketplace_page.dart';
 import 'package:kaagappay/views/home/news_page.dart';
 import 'package:kaagappay/views/home/sell_product_page.dart';
@@ -24,7 +24,7 @@ class NavigatePages {
   static const String login = '/login';
   static const String signup = '/signup';
   static const String marketTrend = '/market_trend';
-  static const String farmerDetails = '/farmer_details';
+  static const String productDetails = '/product_details';
   static const String marketplace = '/marketplace';
   static const String news = '/news';
   static const String sellProduct = '/sell_product';
@@ -49,8 +49,13 @@ class NavigatePages {
         return MaterialPageRoute(builder: (_) => const SignUpPage());
       case NavigatePages.marketTrend:
         return MaterialPageRoute(builder: (_) => const MarketTrendPage());
-      case NavigatePages.farmerDetails:
-        return MaterialPageRoute(builder: (_) => const FarmerDetailsPage());
+      case NavigatePages.productDetails:
+        final product = settings.arguments as Map<String, dynamic>?;  // ✅ SAFELY get the product
+        if (product == null) {
+          // ✅ Error handling: If no product provided, go back to marketplace or show error page
+          return MaterialPageRoute(builder: (_) => const MarketplacePage());
+        }
+        return MaterialPageRoute(builder: (_) => ProductDetailsPage(product: product));
       case NavigatePages.marketplace:
         return MaterialPageRoute(builder: (_) => const MarketplacePage());
       case NavigatePages.news:

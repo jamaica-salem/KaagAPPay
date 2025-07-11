@@ -148,7 +148,7 @@ class _MarketplacePageState extends State<MarketplacePage> {
                         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
                       ),
                       onPressed: () {
-                        // TODO: Navigate to Sell Page
+                        Navigator.pushNamed(context, NavigatePages.sellProduct);
                       },
                       icon: const Icon(LucideIcons.plus, size: 16, color: Colors.white),
                       label: const Text(
